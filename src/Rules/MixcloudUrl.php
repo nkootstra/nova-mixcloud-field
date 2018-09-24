@@ -16,11 +16,8 @@ class MixcloudUrl implements Rule
      */
     public function passes($attribute, $value)
     {
-        // get domain
-        $domain = parse_url($value, PHP_URL_HOST);
-        $value = str_after($domain,'www.');
-
-        return strtolower($value) === 'mixcloud.com';
+        preg_match('%^(?:https?://)?(?:www\.)?(?:mixcloud.com)(/.*)?$%x',$value,$match);
+        return $match[0] ?? null;
     }
 
     /**
